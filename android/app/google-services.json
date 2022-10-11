@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "425570728777",
+    "project_id": "medisca",
+    "storage_bucket": "medisca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425570728777:android:fde3cdeb3154dbcd157898",
+        "android_client_info": {
+          "package_name": "com.nihalpuram.mediscan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425570728777-sau0i4ear86an8st4s7lbr1qnq6s1nhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV7wazFMNoX81O9XCGvvSXpLzbFuorh9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425570728777-sau0i4ear86an8st4s7lbr1qnq6s1nhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
