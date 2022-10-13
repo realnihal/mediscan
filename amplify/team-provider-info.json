@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mediscan-dev-203055-authRole",
+      "UnauthRoleArn": "arn:aws:iam::134811648823:role/amplify-mediscan-dev-203055-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::134811648823:role/amplify-mediscan-dev-203055-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-mediscan-dev-203055-deployment",
+      "UnauthRoleName": "amplify-mediscan-dev-203055-unauthRole",
+      "StackName": "amplify-mediscan-dev-203055",
+      "StackId": "arn:aws:cloudformation:ap-south-1:134811648823:stack/amplify-mediscan-dev-203055/d7585ca0-4b07-11ed-958f-0616ff7778aa",
+      "AmplifyAppId": "dt9p4gedkze8r"
+    },
+    "categories": {
+      "auth": {
+        "mediscan93ac6d16": {}
+      },
+      "storage": {
+        "mediscanAWSlabel": {}
+      }
+    }
+  }
+}

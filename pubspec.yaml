@@ -35,9 +35,17 @@ dependencies:
   google_fonts: ^2.1.0
   firebase_auth: ^3.11.2
   firebase_core: ^1.24.0
-  dio: ^4.0.6
+  firebase_storage: ^10.3.11
   file_picker: ^5.2.1
-  simple_s3: ^0.3.2
+  http: ^0.13.5
+  flutter_switch: ^0.3.2
+  cloud_firestore: ^3.5.1
+  google_sign_in: ^5.4.2
+  permission_handler: ^10.1.0
+  flutter_icons: ^1.1.0
+  amplify_flutter: ^0.6.9
+  amplify_auth_cognito: ^0.6.9
+  amplify_storage_s3: ^0.6.0
 
 dev_dependencies:
   flutter_test:
