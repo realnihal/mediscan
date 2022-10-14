@@ -65,6 +65,18 @@ class FirebaseMethods {
     );
   }
 
+  Future<void> addReportToDb(User user, String fileName) async {
+    firestore.collection('reports').doc(fileName).set(
+      {
+        'owner': user.uid,
+        'email': user.email,
+        'name': user.displayName,
+        'uid': fileName,
+        'status': 'pending',
+      },
+    );
+  }
+
   Future<bool> signOut() async {
     try {
       await _googleSignIn.disconnect();
