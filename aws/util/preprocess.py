@@ -130,6 +130,35 @@ def subpopulation_comprehend(df, medical_specialty,sampleSize=200):
         
     return transcrption_list, patient_ids
 
+def population_comprehend(df):
+    ## select the sub population
+    df_sub_sub=df
+    #df_sub.head()
+
+    ## sample from the population
+    print("original data shape is ",df_sub_sub.shape)
+
+    ## remove missing entries
+    df_sub_sub=df_sub_sub[df_sub_sub.transcription.notna()==True]
+    print("data shape after removing missing entries is ",df_sub_sub.shape)   
+    
+    cm  = boto3.client(service_name='comprehendmedical', use_ssl=True, region_name = 'asia-southeast-2')
+    #idx=0
+    #print("df_sub_sub['transcription'] ", len(df_sub_sub['transcription']))
+    patient_ids=df_sub_sub['id'].to_list()
+    ## comprehend processing
+    # transcrption_list=df_sub_sub['id'].to_list()
+    transcrption_list=[]
+    for text in tqdm(df_sub_sub['transcription']):
+        #print(idx)
+        #print("----------------")
+        #print("analyzing:", text)
+        comprehend_result = cm.detect_entities_v2(Text = text)
+        #print(len(comprehend_result))
+        transcrption_list.append(comprehend_result)
+        
+        
+    return transcrption_list, patient_ids
 
 def corrPlot(df):
     plt.figure(figsize=(15,15))
