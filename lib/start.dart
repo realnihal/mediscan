@@ -24,15 +24,20 @@ class _StartPageState extends State<StartPage> {
     _configureAmplify();
   }
 
-  Future<void> _configureAmplify() async {
-    // Add these lines, to include Auth and Storage plugins.
-    final auth = AmplifyAuthCognito();
-    final storage = AmplifyStorageS3();
-    await Amplify.addPlugins([storage, auth]);
+  void _configureAmplify() async {
+    AmplifyAuthCognito auth = AmplifyAuthCognito();
+    AmplifyStorageS3 storage = AmplifyStorageS3();
+
+    Amplify.addPlugins([auth, storage]);
+
+    //Initialize AmplifyFlutter
     try {
       await Amplify.configure(amplifyconfig);
-    } on Exception catch (e) {
-      print('Tried to configure Amplify and following error occurred: $e');
+
+      print("Amplify was configured.");
+    } on AmplifyAlreadyConfiguredException {
+      print(
+          "Amplify was already configured. Looks like app restarted on android.");
     }
   }
 
