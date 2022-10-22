@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -23,6 +25,22 @@ class _UploadDocPageState extends State<UploadDocPage> {
   Uuid uuid = const Uuid();
   final FirebaseRepository _repository = FirebaseRepository();
 
+  void sendNotification(String uid) async {
+    final url = Uri.http('3.104.104.196', '/analyse');
+    print("Sent Information");
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode(
+        {'uid': uid},
+      ),
+    );
+    print(response.body);
+  }
+
   Future<void> uploadFile(File file, String name) async {
     // Upload the file to S3
     try {
@@ -38,6 +56,7 @@ class _UploadDocPageState extends State<UploadDocPage> {
       });
       await _repository.addReportToDb(
           await _repository.getCurrentUser(), fileName);
+      sendNotification(name);
     } on StorageException catch (e) {
       print('Error uploading file: $e');
     }
@@ -45,7 +64,7 @@ class _UploadDocPageState extends State<UploadDocPage> {
 
   Future<void> getFileFromDirectory() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    fileName = uuid.v1();
+    fileName = '${uuid.v1()}.pdf';
     if (result != null) {
       file = File(result.files.single.path!);
     } else {

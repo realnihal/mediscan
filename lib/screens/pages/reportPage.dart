@@ -13,12 +13,31 @@ class ReportPage extends StatefulWidget {
 class _ReportPageState extends State<ReportPage> {
   var collection = FirebaseFirestore.instance.collection('reports');
   String patientName = '';
+  String key1 = '';
+  String key2 = '';
+  String key3 = '';
+  String value1 = '';
+  String value2 = '';
+  String value3 = '';
+  String score = '';
+  String output = '';
 
   Future<void> getData() async {
     await collection.get().then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {
         if (doc['uid'] == widget.uid) {
-          patientName = doc['name'];
+          setState(() {
+            patientName = doc['name'];
+            key1 = doc['key1'];
+            key2 = doc['key2'];
+            key3 = doc['key3'];
+            value1 = doc['value1'];
+            value2 = doc['value2'];
+            value3 = doc['value3'];
+            score = doc['score'];
+            output = doc['output'];
+            print(output);
+          });
         }
       }
     });
@@ -32,11 +51,6 @@ class _ReportPageState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    var data = {
-      'hemostasis': 86,
-      'edema': 97,
-      'pain': 97,
-    };
     ColorSpace colorSpace = ColorSpace();
     return Scaffold(
       appBar: AppBar(
@@ -95,9 +109,11 @@ class _ReportPageState extends State<ReportPage> {
                         color: Colors.white,
                       ),
                     ),
-                    const Text(
-                      "You need to see a doctor ASAP",
-                      style: TextStyle(
+                    Text(
+                      (output == "normal")
+                          ? "Please schedule an appointment at your leisure!"
+                          : "You need to see a doctor ASAP!",
+                      style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w100,
                         color: Colors.white,
@@ -108,8 +124,8 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Text(
+                      children: [
+                        const Text(
                           "Prediction score: ",
                           style: TextStyle(
                             fontSize: 15,
@@ -118,8 +134,10 @@ class _ReportPageState extends State<ReportPage> {
                           ),
                         ),
                         Text(
-                          "Surgery - 95.4%",
-                          style: TextStyle(
+                          (output == "normal")
+                              ? "Consultation - $score"
+                              : "Surgery - $score",
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
                             color: Colors.white,
@@ -144,16 +162,16 @@ class _ReportPageState extends State<ReportPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Hemostasis",
-                          style: TextStyle(
+                        Text(
+                          key1,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
                             color: Colors.white,
                           ),
                         ),
                         Text(
-                          "${data['hemostasis']}%",
+                          value1,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
@@ -168,16 +186,16 @@ class _ReportPageState extends State<ReportPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Edema",
-                          style: TextStyle(
+                        Text(
+                          key2,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
                             color: Colors.white,
                           ),
                         ),
                         Text(
-                          "${data['edema']}%",
+                          value2,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
@@ -192,16 +210,16 @@ class _ReportPageState extends State<ReportPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Pain",
-                          style: TextStyle(
+                        Text(
+                          key3,
+                          style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
                             color: Colors.white,
                           ),
                         ),
                         Text(
-                          "${data['pain']}%",
+                          value3,
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w100,
